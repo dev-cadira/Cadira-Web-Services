@@ -237,7 +237,7 @@ class Cadira
 
             $query .= sprintf(' WHERE %s ;', implode(" AND ", $criteria));
         }
-        return $query;
+        return $query . ';';
     }
     
     /**

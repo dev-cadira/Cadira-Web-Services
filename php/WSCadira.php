@@ -2,9 +2,9 @@
 
 /*
 Copyright (c) 2022, Cadira, All rights reserved.
-This library is free software; you can redistribute it and/or modify it under the 
-terms of the GNU Lesser General Public License as published by the 
-Free Software Foundation; either version 3.0 of the License, or (at your option) 
+This library is free software; you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the
+Free Software Foundation; either version 3.0 of the License, or (at your option)
 any later version.
 
 This library is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library.
 
-This library is based on the code base of the 
+This library is based on the code base of the
 https://github.com/jaimey/vtiger-restapi-php
 */
 
@@ -46,7 +46,7 @@ class Cadira
     
     /**
      * getToken
-     * Get connection token 
+     * Get connection token
      * @return String
      */
     private function getToken()
@@ -126,6 +126,7 @@ class Cadira
             'sessionName'   => $this->sessionName,
             'id'            => $id
         );
+
         return $this->sendHttpRequest($data, 'GET');
     }
     
@@ -265,5 +266,24 @@ class Cadira
             throw new \Exception($response->error->code . ": " . $response->error->message);
         }
         return $response;
+    }
+
+    /**
+     * invokeFunction
+     *
+     * @param  String $operation
+     * @param  Array $params
+     * @param  String $method
+     * @return Array
+     */
+    public function invokeFunction($operation, $params, $method)
+    {
+        $data = [
+            'operation'     => $operation,
+            'sessionName'   => $this->sessionName,
+            'where'         => json_encode($params)
+        ];
+
+        return $this->sendHttpRequest($data, $method);
     }
 }
